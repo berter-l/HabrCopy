@@ -1,0 +1,7 @@
+FROM python:3.13.15-alpine
+WORKDIR /test_project
+COPY pyproject.toml uv.lock /test_project/
+RUN pip install --no-cache-dir uv && uv sync
+COPY .dockerignore main.py /test_project/
+COPY . .
+CMD ["uv", "run", "main.py"]
