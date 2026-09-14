@@ -25,12 +25,7 @@ async def websocket_endpoint(
 
             message_content = raw_message[message_type]
 
-            await manager.send_comment(
-                message_content,
-                message_type=message_type,
-                post_id=post_id,
-                user_id=user_id,
-            )
+            await manager.send_comment(message_content, post_id=post_id, user_id=user_id)
 
     except WebSocketDisconnect:
         await manager.disconnect(websocket, post_id=post_id)

@@ -1,5 +1,6 @@
-from app.services import session, ENDPOINT_URL, BUCKET_NAME, REGION_NAME
 from uuid import uuid4
+
+from app.services import session, ENDPOINT_URL, BUCKET_NAME, REGION_NAME
 
 
 async def upload_file_to_s3(file: bytes, file_path: str):
@@ -13,5 +14,6 @@ async def upload_file_to_s3(file: bytes, file_path: str):
 
 
 async def build_file_path(post_id: int):
-    file_path = f"/posts/{post_id}/{uuid4()}"
+    file_path = f"posts/{post_id}/{uuid4()}"
     return file_path
+

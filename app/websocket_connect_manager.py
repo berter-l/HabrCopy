@@ -2,6 +2,7 @@ from collections import defaultdict
 
 from fastapi import WebSocket
 
+from app.config.conf import settings
 from app.models import Comments
 from app.models.database import async_session
 from app.services.comments import upload_file_to_s3
@@ -25,7 +26,7 @@ class ConnectManager:
         await websocket.close()
 
     async def send_comment(
-        self, message: str, message_type: str, post_id: int, user_id: int
+        self, message: str, post_id: int, user_id: int
     ):
 
         comment_content = await self.save_comment_to_database(message, post_id, user_id)
@@ -45,7 +46,7 @@ class ConnectManager:
 
             await upload_file_to_s3(message, file_path)
 
-            comment_content = f"" + file_path
+            comment_content = f"https://{settings.s3_conf.domain_bucket_name}.s3.cloud.ru/{file_path}"
 
         try:
 
